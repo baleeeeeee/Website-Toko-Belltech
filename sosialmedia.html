@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tentang Kami - belltech.store</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, sans-serif;
+      background: #f6f8fb;
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* HEADER (TIDAK DIUBAH) */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: linear-gradient(180deg, rgba(255,255,255,0.95), rgba(255,255,255,0.85));
+      backdrop-filter: saturate(120%) blur(4px);
+      border-bottom: 1px solid rgba(15,23,42,0.06);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px;
+    }
+    .brand {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background-image: url("logo petir.png");
+      background-size: contain;
+      background-position: center;
+      background-repeat: no-repeat;
+    }
+    .brand-name {
+      font-weight: 700;
+    }
+    .menu a {
+      padding: 8px 10px;
+      border-radius: 8px;
+      text-decoration: none;
+      color: #0f172a;
+    }
+    .menu a:hover {
+      background: rgba(15,23,42,0.04);
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes slideRight {
+      from { opacity: 0; transform: translateX(40px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    .fade-in {
+      opacity: 0;
+      animation: fadeIn .8s ease forwards;
+    }
+
+    .slide-left {
+      opacity: 0;
+      animation: slideLeft .8s ease forwards;
+    }
+
+    .slide-right {
+      opacity: 0;
+      animation: slideRight .8s ease forwards;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      max-width: 1100px;
+      margin: 40px auto;
+      padding: 40px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      animation: fadeIn 1s ease forwards;
+    }
+
+  .hero-text {
+  flex: 1;
+  min-width: 260px;
+  animation: slideLeft 1s ease forwards;
+}
+
+.hero-img {
+  flex: 1;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: slideRight 1s ease forwards;
+}
+
+
+    .hero-img img {
+      width: 100%;
+      max-width: 360px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      transition: transform .3s ease;
+    }
+
+    .hero-img img:hover {
+      transform: scale(1.05);
+    }
+
+    /* SECTION CARDS */
+    .section {
+      max-width: 1100px;
+      margin: 20px auto;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .card {
+      flex: 1;
+      min-width: 260px;
+      background: #fff;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+      transition: 0.3s ease;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .card:nth-child(1) {
+      animation-delay: .2s;
+    }
+    .card:nth-child(2) {
+      animation-delay: .4s;
+    }
+
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 8px 26px rgba(0,0,0,0.08);
+    }
+
+    footer {
+      background: #0f172a;
+      padding: 24px 0;
+      margin-top: 40px;
+      text-align: center;
+      color: #cbd5e1;
+      font-size: 14px;
+      animation: fadeIn 1s ease forwards;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="nav">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-name">belltech.store</div>
+      </div>
+      <nav class="menu" id="mainMenu">
+        <a href="index.html">Kembali</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero fade-in">
+    <div class="hero-text slide-left">
+      <h1>Tentang BellTech Store</h1>
+      <p>
+        BellTech Store adalah toko laptop modern yang menyediakan berbagai pilihan laptop berkualitas tinggi 
+        untuk kebutuhan kerja, kuliah, editing, hingga gaming. Kami berkomitmen memberikan pelayanan terbaik 
+        dengan pengalaman belanja cepat, aman, dan transparan.
+      </p>
+      <p>
+        Seluruh produk kami original, bergaransi resmi, dan dikurasi langsung agar pelanggan hanya mendapatkan
+        kualitas terbaik.
+      </p>
+    </div>
+
+    <div class="hero-img slide-right">
+      <img src="Screenshot 2025-09-28 001750.png" alt="BellTech Store">
+    </div>
+  </section>
+
+  <!-- VISI MISI -->
+  <section class="section">
+    <div class="card">
+      <h3>Visi Kami</h3>
+      <p>
+        Menjadi toko laptop terpercaya di Indonesia dengan kualitas layanan profesional dan harga terbaik.
+      </p>
+    </div>
+
+    <div class="card">
+      <h3>Misi Kami</h3>
+      <p>
+        • Memberikan pengalaman belanja yang mudah dan cepat<br>
+        • Menyediakan produk original & bergaransi resmi<br>
+        • Menawarkan harga kompetitif<br>
+        • Memberikan layanan support yang responsif
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 belltech.store — pusat laptop murah & berkualitas
+  </footer>
+
+</body>
+</html>

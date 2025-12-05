@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <title>Checkout - belltech.store</title>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: 'Inter', Arial, sans-serif;
+      background: linear-gradient(135deg, #eef2f7, #f8fafc);
+      color: #0f172a;
+      overflow-x: hidden;
+    }
+
+    /* ANIMATIONS */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to   { opacity: 1; transform: translateX(0); }
+    }
+
+    h2 {
+      margin-bottom: 14px;
+      animation: fadeIn .8s ease forwards;
+    }
+
+    /* CARD ITEM */
+    .item {
+      background: #fff;
+      padding: 16px;
+      border-radius: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.07);
+      animation: fadeIn .7s ease forwards;
+    }
+
+    .total {
+      margin-top: 18px;
+      font-size: 22px;
+      font-weight: bold;
+      animation: fadeIn .9s ease forwards;
+    }
+
+    /* FORM BOX */
+    .form-box {
+      background: #fff;
+      padding: 20px;
+      border-radius: 14px;
+      box-shadow: 0 8px 26px rgba(0,0,0,0.07);
+      margin-top: 30px;
+      animation: slideIn .8s ease forwards;
+    }
+
+    label {
+      display: block;
+      margin-top: 12px;
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 12px;
+      margin-top: 6px;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 15px;
+      background: #f8fafc;
+      transition: .25s;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59,130,246,0.25);
+      outline: none;
+      background: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      height: 85px;
+    }
+
+    /* BUTTON */
+    .btn-submit {
+      margin-top: 22px;
+      width: 100%;
+      padding: 14px;
+      background: #111827;
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      font-size: 17px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: .25s;
+    }
+
+    .btn-submit:hover {
+      background: #1f2937;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    /* LOADING BUTTON */
+    .loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .loader {
+      border: 3px solid #fff;
+      border-top: 3px solid transparent;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      margin: auto;
+      animation: spin .8s linear infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* BACK BUTTON */
+    .back-btn {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 10px 16px;
+      background: #111827;
+      color: #fff;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: .25s;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .back-btn:hover {
+      background: #1f2937;
+      transform: translateY(-2px);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      body { padding: 15px; }
+      .form-box { padding: 16px; }
+      .btn-submit { font-size: 16px; }
+    }
+  </style>
+
+</head>
+<body>
+
+  <h2>Checkout</h2>
+
+  <div id="items"></div>
+  <div class="total" id="total">Total: Rp0</div>
+
+  <!-- FORM -->
+  <div class="form-box">
+    <h3 style="margin-top:0;">Data Pembeli</h3>
+
+    <label>Nama Lengkap</label>
+    <input type="text" id="nama" placeholder="Masukkan nama anda">
+
+    <label>Alamat Lengkap</label>
+    <textarea id="alamat" placeholder="Masukkan alamat lengkap"></textarea>
+
+    <label>No HP / WhatsApp</label>
+    <input type="number" id="hp" placeholder="Contoh: 08123456789">
+
+    <button class="btn-submit" id="submitBtn" onclick="submitOrder()">Buat Pesanan</button>
+  </div>
+
+  <a class="back-btn" href="main.html#products">← Kembali</a>
+
+  <script>
+    let cart = JSON.parse(localStorage.getItem("cart") || "{}");
+    let products = JSON.parse(localStorage.getItem("products") || "[]");
+
+    const itemsDiv = document.getElementById("items");
+    const totalDiv = document.getElementById("total");
+    const submitBtn = document.getElementById("submitBtn");
+
+    let total = 0;
+
+    for (const [id, qty] of Object.entries(cart)) {
+      const p = products.find(x => x.id == id);
+      if (!p) continue;
+
+      const rowTotal = p.price * qty;
+      total += rowTotal;
+
+      itemsDiv.innerHTML += `
+        <div class="item">
+          <strong>${p.title}</strong><br>
+          <span>${qty} × Rp${p.price.toLocaleString()}</span><br>
+          <strong>Subtotal: Rp${rowTotal.toLocaleString()}</strong>
+        </div>
+      `;
+    }
+
+    totalDiv.textContent = "Total: Rp" + total.toLocaleString();
+
+    function submitOrder() {
+      const nama = document.getElementById("nama").value.trim();
+      const alamat = document.getElementById("alamat").value.trim();
+      const hp = document.getElementById("hp").value.trim();
+
+      if (!nama || !alamat || !hp) {
+        alert("Harap lengkapi semua data sebelum membuat pesanan.");
+        return;
+      }
+
+      // tombol loading
+      submitBtn.classList.add("loading");
+      submitBtn.innerHTML = `<div class="loader"></div>`;
+
+      let pesanBarang = "";
+      for (const [id, qty] of Object.entries(cart)) {
+        const p = products.find(x => x.id == id);
+        if (!p) continue;
+
+        pesanBarang += `• ${p.title} (${qty}×) - Rp${p.price.toLocaleString()}\n`;
+      }
+
+      const nomorToko = "6281295531115";
+
+      const pesan =
+        `Halo, saya ingin membuat pesanan.\n\n` +
+        `*DATA PEMBELI*\n` +
+        `Nama: ${nama}\n` +
+        `No HP: ${hp}\n` +
+        `Alamat: ${alamat}\n\n` +
+        `*PESANAN:*\n${pesanBarang}\n` +
+        `Total: Rp${total.toLocaleString()}\n\n` +
+        `Terima kasih.`;
+
+      const url = "https://wa.me/" + nomorToko + "?text=" + encodeURIComponent(pesan);
+
+      setTimeout(() => {
+        window.open(url, "_blank");
+        localStorage.removeItem("cart");
+        submitBtn.innerHTML = "Buat Pesanan";
+        submitBtn.classList.remove("loading");
+      }, 700);
+    }
+  </script>
+
+</body>
+</html>

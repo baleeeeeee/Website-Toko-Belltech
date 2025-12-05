@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>belltech.store — Toko Laptop</title>
+  <meta name="description" content="BellTech Store — toko laptop contoh, responsif dengan keranjang belanja" />
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="nav scroll-reveal">
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-logo"></div>
+        <div class="brand-name">belltech.store</div>
+      </div>
+
+      <nav class="menu" id="mainMenu">
+        <a href="index.html">Home</a>
+        <a href="#products">Produk</a>
+        <a href="#contact">Kontak</a>
+      </nav>
+
+      <div style="display:flex;gap:8px;align-items:center">
+        <button class="btn-cart" id="cartBtn">Keranjang (<span id="cartCount">0</span>)</button>
+        <button class="hamburger" id="hambBtn" aria-label="menu">☰</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero scroll-reveal" id="home">
+      <div class="hero-card">
+      </div>
+    </section>
+
+    <section class="products" id="products">
+      <h2 class="scroll-reveal" style="margin-left:18px">Laptop</h2>
+      <div class="grid scroll-reveal" id="productGrid">
+        <!-- Produk akan dimasukkan lewat JS -->
+      </div>
+    </section>
+
+    <section id="contact" class="scroll-reveal" style="
+  max-width:1100px;
+  margin:40px auto;
+  padding:30px;
+  background:linear-gradient(135deg,#ffffff,#f1f5f9);
+  border-radius:20px;
+  box-shadow:0 8px 24px rgba(0,0,0,0.06);
+">
+  <h2 style="font-size:26px;margin-bottom:18px;color:#0f172a;">Hubungi Kami</h2>
+
+  <div style="
+    display:flex;
+    flex-wrap:wrap;
+    gap:20px;
+    margin-top:10px;
+  ">
+
+    <!-- Email Card -->
+    <div style="
+      flex:1;
+      min-width:260px;
+      background:#fff;
+      padding:18px;
+      border-radius:14px;
+      border:1px solid #e2e8f0;
+      display:flex;
+      gap:14px;
+      align-items:center;
+    ">
+      <div style="font-size:30px">📧</div>
+      <div>
+        <div style="font-weight:bold;color:#0f172a;">Email</div>
+        <div style="color:#475569">belltech.store@gmail.com</div>
+      </div>
+    </div>
+
+    <!-- WhatsApp Card -->
+    <div style="
+      flex:1;
+      min-width:260px;
+      background:#fff;
+      padding:18px;
+      border-radius:14px;
+      border:1px solid #e2e8f0;
+      display:flex;
+      gap:14px;
+      align-items:center;
+    ">
+      <div style="font-size:30px">💬</div>
+      <div>
+        <div style="font-weight:bold;color:#0f172a;">WhatsApp</div>
+        <a href="https://wa.me/6281295531115" 
+           style="color:#0d9488;text-decoration:none;font-weight:600" 
+           target="_blank">
+          Chat sekarang →
+        </a>
+      </div>
+    </div>
+
+    <!-- Lokasi Card -->
+    <div style="
+      flex:1;
+      min-width:260px;
+      background:#fff;
+      padding:18px;
+      border-radius:14px;
+      border:1px solid #e2e8f0;
+      display:flex;
+      gap:14px;
+      align-items:center;
+    ">
+      <div style="font-size:30px">📍</div>
+      <div>
+        <div style="font-weight:bold;color:#0f172a;">Lokasi</div>
+        <div style="color:#475569">Jakarta, Indonesia</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+  </main>
+
+  <!-- Cart drawer -->
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-head">
+      <strong>Keranjang Belanja</strong>
+      <button id="closeCart">✕</button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <p>Belum ada produk.</p>
+    </div>
+    <div class="cart-foot">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <strong>Total:</strong>
+        <strong id="cartTotal">Rp0</strong>
+      </div>
+      <div id="summary" style="margin-bottom:6px;color:#475569;font-size:14px">Keranjang kosong.</div>
+      <button class="btn btn-primary" id="checkoutBtn">Checkout</button>
+    </div>
+  </aside>
+
+  <footer class="scroll-reveal" style="
+  background:#0f172a;
+  padding:24px 0;
+  margin-top:40px;
+  text-align:center;
+  color:#cbd5e1;
+  font-size:14px;
+">
+  © 2025 belltech.store — toko laptop murah
+</footer>
+
+
+  <script>
+  const PRODUCTS = [
+  {
+    id: 1,
+    title: 'Lenovo LOQ 15IRX9',
+    price: 12499999,
+    desc: 'i5 13450HX · RTX 3050 · RAM 12GB · 512GB SSD',
+    img: 'images/Loq.png'
+  },
+  {
+    id: 2,
+    title: 'Lenovo LOQ 15IRX10',
+    price: 17999999,
+    desc: 'i7 13700HX · RTX 5050 · RAM 12GB · 512GB SSD',
+    img: 'images/Loq.png'
+  },
+  {
+    id: 3,
+    title: 'Lenovo LOQ 15IAX9I',
+    price: 13499999,
+    desc: 'i5 12450HX · Intel Arc A530M · RAM 12GB · 512GB SSD',
+    img: 'images/Loq.png'
+  },
+  {
+    id: 4,
+    title: 'Lenovo Legion Pro 5 54ID',
+    price: 33499999,
+    desc: 'i9 14900HX · RTX 5060 · RAM 12GB · 512GB SSD',
+    img: 'images/Legion Pro 5.png'
+  },
+  {
+    id: 5,
+    title: 'Lenovo LOQ Essential 15',
+    price: 10499999,
+    desc: 'i5 12450HX · RTX 3050 · RAM 12GB · 512GB SSD',
+    img: 'images/Essential.png'
+  },
+  {
+    id: 6,
+    title: 'Asus TUF A15',
+    price: 12299999,
+    desc: 'Ryzen 7 7445HS · RTX 3050 · RAM 8GB · 512GB SSD',
+    img: 'images/Tuf A15.png'
+  },
+  {
+    id: 7,
+    title: 'Asus TUF A14',
+    price: 23399999,
+    desc: 'Ryzen 7 8845HS · RTX 4050 · RAM 8GB · 512GB SSD',
+    img: 'images/TUF A14.png'
+  },
+  {
+    id: 8,
+    title: 'Asus TUF F16',
+    price: 27999999,
+    desc: 'i7 14650HX · RTX 5070 · RAM 8GB · 512GB SSD',
+    img: 'images/Tuf F16.jpg'
+  },
+  {
+    id: 9,
+    title: 'Asus TUF A15',
+    price: 12199999,
+    desc: 'Ryzen 7 7435HS · RTX 2050 · RAM 8GB · 512GB SSD',
+    img: 'images/Tuf A15.png'
+  },
+  {
+    id: 10,
+    title: 'Asus TUF F15',
+    price: 13699999,
+    desc: 'i7 13620H · RTX 3050 · RAM 8GB · 512GB SSD',
+    img: 'images/tuf F15.jpg'
+  },
+  {
+    id: 11,
+    title: 'MSI Thin 15',
+    price: 13499999,
+    desc: 'i5 13420H · RTX 4060 · RAM 16GB · 512GB SSD',
+    img: 'images/msi thin 15.jpg'
+  },
+  {
+    id: 12,
+    title: 'MSI Modern 14',
+    price: 5199999,
+    desc: 'i3 1315U · Intel UHD Graphics · RAM 8GB · 256GB SSD',
+    img: 'images/msi modern 14.jpg'
+  },
+  {
+    id: 13,
+    title: 'MSI Cyborg 15',
+    price: 12999999,
+    desc: 'i5 12450H · RTX 4060 · RAM 8GB · 512GB SSD',
+    img: 'images/msi cyborg 15.jpg'
+  },
+  {
+    id: 14,
+    title: 'ASUS Gaming K16',
+    price: 12099999,
+    desc: 'i7 13260H · RTX 3050 · RAM 16GB · 512GB SSD',
+    img: 'images/asus gaming k16.jpg'
+  },
+  {
+    id: 15,
+    title: 'Lenovo Ideapad Slim 5',
+    price: 12349999,
+    desc: 'Intel Core Ultra 5 · Intel Arc 15T GPU · RAM 8GB · 512GB SSD',
+    img: 'images/Lenovo idepad slim 5.jpg'
+  },
+  {
+    id: 16,
+    title: 'Lenovo Ideapad Slim 5',
+    price: 11999999,
+    desc: 'i7 13620H · RTX 2050 · RAM 16GB · 512GB SSD',
+    img: 'images/Lenovo idepad slim 5.jpg'
+  },
+  {
+    id: 17,
+    title: 'MSI Summit E13',
+    price: 13449999,
+    desc: 'Intel Evo Ultra 7 155H · RAM 16GB · 512GB SSD',
+    img: 'images/msi summit e13.jpg'
+  },
+  {
+    id: 18,
+    title: 'HP Omen 16',
+    price: 18499999,
+    desc: 'i7 14650HX · RTX 4060 · RAM 32GB · 1TB SSD',
+    img: 'images/hp omen 16.jpg'
+  },
+  {
+    id: 19,
+    title: 'Lenovo Thinkpad L13',
+    price: 5199999,
+    desc: 'i5 1145G7 · Intel Iris XE · RAM 16GB · 512GB SSD',
+    img: 'images/lenovo thinkpad l13.jpg'
+  },
+  {
+    id: 20,
+    title: 'AXIOO Hype 7',
+    price: 7999999,
+    desc: 'Ryzen 7 6800H · RAM 8GB · 512GB SSD',
+    img: 'images/axioo hype 7.jpg'
+  },
+  {
+    id: 21,
+    title: 'ASUS Vivobook 14',
+    price: 6999999,
+    desc: 'i5 1334U · Intel UHD · RAM 8GB · 256GB SSD',
+    img: 'images/vivobook 14.jpg'
+  },
+  {
+    id: 22,
+    title: 'Lenovo Ideapad Slim 3',
+    price: 8999999,
+    desc: 'i7 13620H · Intel UHD · RAM 8GB · 256GB SSD',
+    img: 'images/ideapad slim 3.jpg'
+  },
+  {
+    id: 23,
+    title: 'Lenovo V14',
+    price: 10299999,
+    desc: 'i7 1255U · Intel UHD · RAM 8GB · 256GB SSD',
+    img: 'images/lenovo v14.jpg'
+  },
+  {
+    id: 24,
+    title: 'Acer Nitro 5',
+    price: 12099999,
+    desc: 'i5 12500H · RTX 3050 · RAM 8GB · 512GB SSD',
+    img: 'images/acer nitro 5.jpg'
+  },
+  {
+    id: 25,
+    title: 'Acer Nitro V15',
+    price: 9999999,
+    desc: 'Ryzen 5 6600H · RTX 2050 · RAM 8GB · 512GB SSD',
+    img: 'images/acer nitro v15.png'
+  },
+  {
+    id: 26,
+    title: 'Acer Aspire 7',
+    price: 12799999,
+    desc: 'i7 13620H · RTX 3050 · RAM 16GB · 512GB SSD',
+    img: 'images/acer aspire 7.png'
+  },
+  {
+    id: 27,
+    title: 'HP Victus 15',
+    price: 11499999,
+    desc: 'i5 13420H · RTX 3050 · RAM 16GB · 512GB SSD',
+    img: 'images/hp victus 15.png'
+  },
+  {
+    id: 28,
+    title: 'HP Victus 15',
+    price: 10599999,
+    desc: 'Ryzen 7 7445HS · RTX 2050 · RAM 8GB · 512GB SSD',
+    img: 'images/hp victus 15.png'
+  },
+  {
+    id: 29,
+    title: 'Asus ROG Zephyrus G16',
+    price: 36499999,
+    desc: 'Intel Ultra 9 185H · RTX 4070 · RAM 16GB · 1TB SSD',
+    img: 'images/ROG!.png'
+  },
+  {
+    id: 30,
+    title: 'Asus ROG Strix G16',
+    price: 24999999,
+    desc: 'Ryzen 9 8940HX · RTX 5050 · RAM 16GB · 512GB SSD',
+    img: 'images/ROG 2.png'
+  }
+];
+
+
+    // Simple cart state
+    const cart = {};
+
+    const productGrid = document.getElementById('productGrid');
+    const cartBtn = document.getElementById('cartBtn');
+    const cartDrawer = document.getElementById('cartDrawer');
+    const closeCart = document.getElementById('closeCart');
+    const cartBody = document.getElementById('cartBody');
+    const cartCount = document.getElementById('cartCount');
+    const cartTotal = document.getElementById('cartTotal');
+    const summary = document.getElementById('summary');
+    const hambBtn = document.getElementById('hambBtn');
+    const mainMenu = document.getElementById('mainMenu');
+    const checkoutBtn = document.getElementById('checkoutBtn');
+
+    function formatRupiah(n){ return 'Rp'+n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '.'); }
+function showPopup(text) {
+  const pop = document.getElementById("popup");
+  pop.innerText = text;
+  pop.classList.add("show");
+
+  setTimeout(() => {
+    pop.classList.remove("show");
+  }, 2000);
+} 
+    function renderProducts(){
+      productGrid.innerHTML='';
+      for(const p of PRODUCTS){
+        const el = document.createElement('article');
+        el.className='card scroll-reveal';
+        el.innerHTML = `
+          <div class="thumb"><img src="${p.img}" alt="${p.title}"></div>
+          <div style="margin-top:10px">
+            <div style="font-weight:700">${p.title}</div>
+            <div class="desc" style="margin-top:6px">${p.desc}</div>
+            <div class="specs" style="font-size:13px;color:#64748b;margin-top:8px"></div>
+          </div>
+          <div class="meta" style="margin-top:10px">
+            <div class="price">${formatRupiah(p.price)}</div>
+            <div>
+              <button class="btn btn-primary" data-id="${p.id}">Tambah</button>
+            </div>
+          </div>
+        `;
+        productGrid.appendChild(el);
+      }
+
+      // attach listeners
+      document.querySelectorAll('.btn-primary[data-id]').forEach(b=>{
+        b.addEventListener('click',e=>{
+          const id = Number(e.currentTarget.dataset.id);
+          const p = PRODUCTS.find(x => x.id === id);
+          addToCart(id);
+           // 🔥 POPUPNYA MUNCUL DI SINI
+    showPopup(`${p.title} ditambahkan ke keranjang`);
+        });
+      });
+    }
+
+    function addToCart(id){
+      cart[id] = (cart[id]||0)+1;
+      updateCartUI();
+    }
+
+    function removeFromCart(id){
+      delete cart[id];
+      updateCartUI();
+    }
+
+    function changeQty(id,delta){
+      cart[id] = (cart[id]||0)+delta;
+      if(cart[id] <= 0) delete cart[id];
+      updateCartUI();
+    }
+
+    function updateCartUI(){
+      const totalItems = Object.values(cart).reduce((s,x)=>s+x,0);
+      cartCount.textContent = totalItems;
+
+      if(totalItems===0){
+        cartBody.innerHTML = '<p>Belum ada produk.</p>';
+        summary.textContent = 'Keranjang kosong.';
+        cartTotal.textContent = formatRupiah(0);
+        return;
+      }
+
+      let html = '';
+      let totalPrice = 0;
+      for(const [idStr,qty] of Object.entries(cart)){
+        const id = Number(idStr);
+        const p = PRODUCTS.find(x=>x.id===id);
+        const rowTotal = p.price*qty;
+        totalPrice += rowTotal;
+        html += `
+          <div class="cart-row">
+            <div style="width:56px;height:56px;border-radius:8px;overflow:hidden"><img src="${p.img}" style="width:100%;height:100%;object-fit:cover"></div>
+            <div style="flex:1">
+              <div style="font-weight:700">${p.title}</div>
+              <div style="font-size:13px;color:#64748b">${formatRupiah(p.price)} x ${qty}</div>
+            </div>
+            <div class="qty">
+              <button class="btn btn-ghost" data-action="dec" data-id="${id}">-</button>
+              <div style="padding:6px 10px">${qty}</div>
+              <button class="btn btn-ghost" data-action="inc" data-id="${id}">+</button>
+              <button class="btn btn-ghost" data-action="rem" data-id="${id}">hapus</button>
+            </div>
+          </div>
+        `;
+      }
+      cartBody.innerHTML = html;
+      cartTotal.textContent = formatRupiah(totalPrice);
+      summary.textContent = `${totalItems} item — ${formatRupiah(totalPrice)}`;
+
+      cartBody.querySelectorAll('button[data-action]').forEach(b=>{
+        const id = Number(b.dataset.id);
+        const action = b.dataset.action;
+        b.addEventListener('click',()=>{
+          if(action==='inc') changeQty(id,1);
+          if(action==='dec') changeQty(id,-1);
+          if(action==='rem') removeFromCart(id);
+        });
+      });
+    }
+
+   // UI handlers
+cartBtn.addEventListener('click',()=>{
+  cartDrawer.classList.add('open');
+  cartDrawer.setAttribute('aria-hidden','false');
+});
+
+closeCart.addEventListener('click',()=>{
+  cartDrawer.classList.remove('open');
+  cartDrawer.setAttribute('aria-hidden','true');
+});
+
+// === CHECKOUT BUTTON FIX ===
+checkoutBtn.addEventListener('click', () => {
+  const totalItems = Object.values(cart).reduce((s,x)=>s+x,0);
+
+  if (totalItems === 0) {
+    showPopup("Keranjang masih kosong!");
+    return;
+  }
+
+  // Simpan ke localStorage untuk halaman checkout
+  localStorage.setItem("cart", JSON.stringify(cart));
+  localStorage.setItem("products", JSON.stringify(PRODUCTS));
+
+  // Pindah ke halaman checkout
+  window.location.href = "checkout.html";
+});
+
+
+hambBtn.addEventListener('click',()=>{
+  mainMenu.style.display = mainMenu.style.display === 'flex' ? 'none' : 'flex';
+});
+
+// init
+renderProducts();
+updateCartUI();
+
+  </script>
+  <div id="popup">Ditambahkan ke keranjang</div>
+  <script>
+document.addEventListener("DOMContentLoaded", () => {
+  const items = document.querySelectorAll(".scroll-reveal, .scroll-left, .scroll-right");
+
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("show");
+      }
+    });
+  }, { threshold: 0.15 });
+
+  items.forEach(item => obs.observe(item));
+  
+});
+</script>
+<script>
+let lastScroll = 0;
+const nav = document.querySelector(".nav");
+
+window.addEventListener("scroll", () => {
+  const currentScroll = window.pageYOffset;
+
+  if (currentScroll > lastScroll && currentScroll > 100) {
+    // Scroll ke bawah → sembunyikan
+    nav.classList.add("hide");
+  } else {
+    // Scroll ke atas → tampilkan
+    nav.classList.remove("hide");
+  }
+
+  lastScroll = currentScroll;
+});
+</script>
+
+</body>
+</html>
